@@ -22,7 +22,7 @@
     "forwardPorts": [
         50505
     ],
-    "postCreateCommand": "",
+    "postCreateCommand": "pip install -r requirements-dev.txt",
     "remoteUser": "vscode",
     "hostRequirements": {
         "memory": "8gb"

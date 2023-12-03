@@ -1,5 +1,6 @@
 import io
 import logging
+from logger import Logger
 import mimetypes
 import os
 import time
@@ -54,6 +55,7 @@ CONFIG_BLOB_CLIENT = "blob_client"
 APPLICATIONINSIGHTS_CONNECTION_STRING = os.getenv("APPLICATIONINSIGHTS_CONNECTION_STRING")
 
 bp = Blueprint("routes", __name__, static_folder='static')
+logger = Logger(debug_mode=True)
 
 @bp.route("/")
 async def index():
@@ -108,7 +110,7 @@ async def ask():
             r = await impl.run(request_json["question"], request_json.get("overrides") or {})
         return jsonify(r)
     except Exception as e:
-        logging.exception("Exception in /ask")
+        logger.exception("Exception in /ask")
         return jsonify({"error": str(e)}), 500
 
 @bp.route("/chat", methods=["POST"])
@@ -124,7 +126,7 @@ async def chat():
         r = await impl.run(request_json["history"], request_json.get("overrides") or {})
         return jsonify(r)
     except Exception as e:
-        logging.exception("Exception in /chat")
+        logger.exception("Exception in /chat")
         return jsonify({"error": str(e)}), 500
 
 @bp.before_request
@@ -242,5 +244,6 @@ def create_app():
     app = Quart(__name__)
     app.register_blueprint(bp)
     app.asgi_app = OpenTelemetryMiddleware(app.asgi_app)
+    logger.debug(__name__+":create_app() done")
 
     return app

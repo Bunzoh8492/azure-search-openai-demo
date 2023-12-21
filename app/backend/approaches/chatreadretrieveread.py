@@ -23,9 +23,21 @@ class ChatReadRetrieveReadApproach(ChatApproach):
     Cognitive SearchとOpenAIのAPIを直接使用した、シンプルな retrieve-then-read の実装です。これは、最初に
     検索からトップ文書を抽出し、それを使ってプロンプトを構成し、OpenAIで補完生成する (answer)をそのプロンプトで表示します。
     """
+#     system_message_chat_conversation = """
+# Answer the reading comprehension question on the history of the Kamakura period in Japan.
+# If you cannot guess the answer to a question from the SOURCES, answer "I don't know".
+# Answers must be in Japanese.
+
+# # Restrictions
+# - The SOURCES prefix has a colon and actual information after the filename, and each fact used in the response must include the name of the source.
+# - To reference a source, use a square bracket. For example, [info1.txt]. Do not combine sources, but list each source separately. For example, [info1.txt][info2.pdf].
+
+# {follow_up_questions_prompt}
+# {injected_prompt}
+# """
     system_message_chat_conversation = """
 Answer the reading comprehension question on the history of the Kamakura period in Japan.
-If you cannot guess the answer to a question from the SOURCES, answer "I don't know".
+If you cannot guess the answer to a question from the SOURCES, answer "検索対象データから回答を得られませんでした。".
 Answers must be in Japanese.
 
 # Restrictions
@@ -35,6 +47,7 @@ Answers must be in Japanese.
 {follow_up_questions_prompt}
 {injected_prompt}
 """
+
     follow_up_questions_prompt_content = """
 Answers must be accompanied by three additional follow-up questions to the user's question. The rules for follow-up questions are defined in the Restrictions.
 
@@ -169,7 +182,8 @@ If you cannot generate a search query, return only the number 0.
         # クライアントがプロンプト全体を置き換えたり、>>を使用して終了するプロンプトに注入したりできるようにする。
         prompt_override = overrides.get("prompt_override")
         if prompt_override is None:
-            system_message = self.system_message_chat_conversation.format(injected_prompt="", follow_up_questions_prompt=follow_up_questions_prompt)
+            # system_message = self.system_message_chat_conversation.format(injected_prompt="", follow_up_questions_prompt=follow_up_questions_prompt)
+            system_message = self.system_message_chat_conversation.format(injected_prompt="", follow_up_questions_prompt="")
         elif prompt_override.startswith(">>>"):
             system_message = self.system_message_chat_conversation.format(injected_prompt=prompt_override[3:] + "\n", follow_up_questions_prompt=follow_up_questions_prompt)
         else:

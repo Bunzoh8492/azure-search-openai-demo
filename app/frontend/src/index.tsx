@@ -7,6 +7,7 @@ import "./index.css";
 
 import Layout from "./pages/layout/Layout";
 import Chat from "./pages/chat/Chat";
+import General from "./pages/general/General";
 
 initializeIcons();
 
@@ -19,9 +20,14 @@ const router = createHashRouter([
                 index: true,
                 element: <Chat />
             },
+            // {
+            //     path: "qa",
+            //     lazy: () => import("./pages/oneshot/OneShot")
+            // },
             {
-                path: "qa",
-                lazy: () => import("./pages/oneshot/OneShot")
+                path: "ge",
+                //lazy: () => import("./pages/general/General")
+                element: <General />
             },
             {
                 path: "*",

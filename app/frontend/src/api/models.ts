@@ -2,7 +2,8 @@ export const enum Approaches {
     RetrieveThenRead = "rtr",
     ReadRetrieveRead = "rrr",
     ReadDecomposeAsk = "rda",
-    ReadPluginsRetrieve = "rpr"
+    ReadPluginsRetrieve = "rpr",
+    General = "g"
 }
 
 export const enum RetrievalMode {

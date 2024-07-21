@@ -19,9 +19,14 @@ const Layout = () => {
                                     Chat
                                 </NavLink>
                             </li>
-                            <li className={styles.headerNavLeftMargin}>
+                            {/* <li className={styles.headerNavLeftMargin}>
                                 <NavLink to="/qa" className={({ isActive }) => (isActive ? styles.headerNavPageLinkActive : styles.headerNavPageLink)}>
                                     Ask a question
+                                </NavLink>
+                            </li> */}
+                            <li className={styles.headerNavLeftMargin}>
+                                <NavLink to="/ge" className={({ isActive }) => (isActive ? styles.headerNavPageLinkActive : styles.headerNavPageLink)}>
+                                    General Chat
                                 </NavLink>
                             </li>
                             <li className={styles.headerNavLeftMargin}>

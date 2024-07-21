@@ -24,6 +24,7 @@ from quart import (
 )
 
 from approaches.chatreadretrieveread import ChatReadRetrieveReadApproach
+from approaches.generalreadretrieveread import GeneralReadRetrieveReadApproach
 from approaches.chatreadretrieveread_cosmosdb import ChatReadRetrieveReadApproachCosmosDB
 from approaches.readdecomposeask import ReadDecomposeAsk
 from approaches.readretrieveread import ReadRetrieveReadApproach
@@ -218,6 +219,14 @@ async def setup_clients():
     }
     current_app.config[CONFIG_CHAT_APPROACHES] = {
         "rrr": ChatReadRetrieveReadApproach(
+            search_client,
+            AZURE_OPENAI_CHATGPT_DEPLOYMENT,
+            AZURE_OPENAI_CHATGPT_MODEL,
+            AZURE_OPENAI_EMB_DEPLOYMENT,
+            KB_FIELDS_SOURCEPAGE,
+            KB_FIELDS_CONTENT,
+        ),
+        "g": GeneralReadRetrieveReadApproach(
             search_client,
             AZURE_OPENAI_CHATGPT_DEPLOYMENT,
             AZURE_OPENAI_CHATGPT_MODEL,

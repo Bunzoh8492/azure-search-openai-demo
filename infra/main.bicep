@@ -61,7 +61,8 @@ param principalId string = ''
 param useApplicationInsights bool = false
 
 var abbrs = loadJsonContent('abbreviations.json')
-var resourceToken = toLower(uniqueString(subscription().id, environmentName, location))
+// var resourceToken = toLower(uniqueString(subscription().id, environmentName, location))
+var resourceToken = 'cpoygrwr3d7jc'
 var tags = { 'azd-env-name': environmentName }
 
 // Organize resources in a resource group

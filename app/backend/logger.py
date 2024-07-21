@@ -1,5 +1,6 @@
 import logging
 from opencensus.ext.azure.log_exporter import AzureLogHandler
+from opentelemetry.instrumentation.aiohttp_client import AioHttpClientInstrumentor
 
 class Logger:
 

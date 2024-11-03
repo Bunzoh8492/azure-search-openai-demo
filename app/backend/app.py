@@ -25,6 +25,7 @@ from quart import (
 
 from approaches.chatreadretrieveread import ChatReadRetrieveReadApproach
 from approaches.generalreadretrieveread import GeneralReadRetrieveReadApproach
+# from approaches.assistantapi import AssistantApproach
 from approaches.chatreadretrieveread_cosmosdb import ChatReadRetrieveReadApproachCosmosDB
 from approaches.readdecomposeask import ReadDecomposeAsk
 from approaches.readretrieveread import ReadRetrieveReadApproach
@@ -124,6 +125,9 @@ async def chat():
         impl = current_app.config[CONFIG_CHAT_APPROACHES].get(approach)
         if not impl:
             return jsonify({"error": "unknown approach"}), 400
+        if approach == "as":
+            r = await impl.run()
+            return jsonify(r)
         r = await impl.run(request_json["history"], request_json.get("overrides") or {})
         return jsonify(r)
     except Exception as e:
@@ -233,7 +237,15 @@ async def setup_clients():
             AZURE_OPENAI_EMB_DEPLOYMENT,
             KB_FIELDS_SOURCEPAGE,
             KB_FIELDS_CONTENT,
-        )
+        ),
+        # "as": AssistantApproach(
+        #     # search_client,
+        #     # AZURE_OPENAI_CHATGPT_DEPLOYMENT,
+        #     # AZURE_OPENAI_CHATGPT_MODEL,
+        #     # AZURE_OPENAI_EMB_DEPLOYMENT,
+        #     # KB_FIELDS_SOURCEPAGE,
+        #     # KB_FIELDS_CONTENT,
+        # )
         # "rrr": ChatReadRetrieveReadApproachCosmosDB (
         #     search_client,
         #     cosmos_container,

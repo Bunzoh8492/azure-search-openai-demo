@@ -17,3 +17,8 @@ class GeneralApproach(ABC):
     @abstractmethod
     async def run(self, history: list[dict], overrides: dict[str, Any]) -> Any:
         ...
+
+class AssistantApproach(ABC):
+    @abstractmethod
+    async def run(self, history: list[dict], overrides: dict[str, Any]) -> Any:
+        ...

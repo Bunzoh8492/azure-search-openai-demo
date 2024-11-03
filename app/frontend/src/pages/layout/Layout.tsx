@@ -15,7 +15,7 @@ const Layout = () => {
                     <nav>
                         <ul className={styles.headerNavList}>
                             <li>
-                                <NavLink to="/" className={({ isActive }) => (isActive ? styles.headerNavPageLinkActive : styles.headerNavPageLink)}>
+                                <NavLink to="/ch" className={({ isActive }) => (isActive ? styles.headerNavPageLinkActive : styles.headerNavPageLink)}>
                                     Chat
                                 </NavLink>
                             </li>
@@ -29,6 +29,11 @@ const Layout = () => {
                                     General Chat
                                 </NavLink>
                             </li>
+                            {/* <li className={styles.headerNavLeftMargin}>
+                                <NavLink to="/as" className={({ isActive }) => (isActive ? styles.headerNavPageLinkActive : styles.headerNavPageLink)}>
+                                    Assistant Chat
+                                </NavLink>
+                            </li> */}
                             <li className={styles.headerNavLeftMargin}>
                                 <a href="https://aka.ms/entgptsearch" target={"_blank"} title="Github repository link">
                                     <img

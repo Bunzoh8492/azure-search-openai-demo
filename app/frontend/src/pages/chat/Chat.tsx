@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect} from "react";
 import { Checkbox, Panel, DefaultButton, TextField, SpinButton, Dropdown, IDropdownOption } from "@fluentui/react";
 import { SparkleFilled } from "@fluentui/react-icons";
 
@@ -142,8 +142,8 @@ const Chat = () => {
                     {!lastQuestionRef.current ? (
                         <div className={styles.chatEmptyState}>
                             <SparkleFilled fontSize={"120px"} primaryFill={"rgba(115, 118, 225, 1)"} aria-hidden="true" aria-label="Chat logo" />
-                            <h1 className={styles.chatEmptyStateTitle}>RAG Chat GPT</h1>
-                            <h2 className={styles.chatEmptyStateSubtitle}>事前にアップロードした資料を基に回答します</h2>
+                            <h1 className={styles.chatEmptyStateTitle}>社内規程QA</h1>
+                            <h2 className={styles.chatEmptyStateSubtitle}>社内規程に特化したChatGPTです</h2>
                             <ExampleList onExampleClicked={onExampleClicked} />
                         </div>
                     ) : (
@@ -186,12 +186,7 @@ const Chat = () => {
                     )}
 
                     <div className={styles.chatInput}>
-                        <QuestionInput
-                            clearOnSend
-                            placeholder="質問を入力してください"
-                            disabled={isLoading}
-                            onSend={question => makeApiRequest(question)}
-                        />
+                        <QuestionInput clearOnSend placeholder="質問を入力してください" disabled={isLoading} onSend={question => makeApiRequest(question)} />
                     </div>
                 </div>
 

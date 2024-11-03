@@ -3,7 +3,8 @@ export const enum Approaches {
     ReadRetrieveRead = "rrr",
     ReadDecomposeAsk = "rda",
     ReadPluginsRetrieve = "rpr",
-    General = "g"
+    General = "g",
+    Assistant = "as"
 }
 
 export const enum RetrievalMode {

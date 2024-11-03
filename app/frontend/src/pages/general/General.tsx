@@ -7,6 +7,7 @@ import styles from "./General.module.css";
 import { chatApi, RetrievalMode, Approaches, AskResponse, ChatRequest, ChatTurn } from "../../api";
 import { Answer, AnswerError, AnswerLoading } from "../../components/Answer";
 import { QuestionInput } from "../../components/QuestionInput";
+// import { QuestionInput2 } from "../../components/QuestionInput2";
 import { ExampleList } from "../../components/Example";
 import { UserChatMessage } from "../../components/UserChatMessage";
 import { AnalysisPanel, AnalysisPanelTabs } from "../../components/AnalysisPanel";
@@ -35,6 +36,8 @@ const General = () => {
 
     const [selectedAnswer, setSelectedAnswer] = useState<number>(0);
     const [answers, setAnswers] = useState<[user: string, response: AskResponse][]>([]);
+
+    const testAssistant = async () => {};
 
     const makeApiRequest = async (question: string) => {
         lastQuestionRef.current = question;
@@ -132,6 +135,22 @@ const General = () => {
         setSelectedAnswer(index);
     };
 
+    // const inputRef = useRef<HTMLInputElement>(null);
+
+    // const onFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    //     console.log(e.target.files);
+    //     if (e.target.files !== null) {
+    //         alert("name:" + e.target.files[0].name);
+    //     } else {
+    //         alert("nothing");
+    //     }
+    // };
+
+    // const fileUpload = () => {
+    //     console.log(inputRef.current);
+    //     inputRef?.current?.click();
+    // };
+
     return (
         <div className={styles.container}>
             <div className={styles.commandsContainer}>
@@ -144,7 +163,7 @@ const General = () => {
                         <div className={styles.chatEmptyState}>
                             <SparkleFilled fontSize={"120px"} primaryFill={"rgba(115, 118, 225, 1)"} aria-hidden="true" aria-label="Chat logo" />
                             <h1 className={styles.chatEmptyStateTitle}>Private Chat GPT</h1>
-                            <h2 className={styles.chatEmptyStateSubtitle}>ここで入力したチャット内容は外部に送信されず、AIの学習に使用されません</h2>
+                            <h2 className={styles.chatEmptyStateSubtitle}>ここで入力したチャットは外部に送信されず、AIの学習に使用されません</h2>
                             {/* <ExampleList onExampleClicked={onExampleClicked} /> */}
                         </div>
                     ) : (
@@ -187,8 +206,13 @@ const General = () => {
                     )}
 
                     <div className={styles.chatInput}>
+                        {/* <QuestionInput2 clearOnSend placeholder="何でも聞いてください..." disabled={isLoading} onSend={question => makeApiRequest(question)} /> */}
                         <QuestionInput clearOnSend placeholder="何でも聞いてください..." disabled={isLoading} onSend={question => makeApiRequest(question)} />
                     </div>
+                    {/* <div>
+                        <button onClick={fileUpload}>fileup</button>
+                        <input hidden ref={inputRef} type="file" onChange={onFileInputChange} />
+                    </div> */}
                 </div>
 
                 {answers.length > 0 && activeAnalysisPanelTab && (

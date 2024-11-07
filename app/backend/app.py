@@ -55,6 +55,7 @@ CONFIG_CHAT_APPROACHES = "chat_approaches"
 CONFIG_BLOB_CLIENT = "blob_client"
 
 APPLICATIONINSIGHTS_CONNECTION_STRING = os.getenv("APPLICATIONINSIGHTS_CONNECTION_STRING")
+APP_PWD = os.getenv("APP_PWD")
 
 bp = Blueprint("routes", __name__, static_folder='static')
 logger = Logger(debug_mode=True)
@@ -132,6 +133,17 @@ async def chat():
         return jsonify(r)
     except Exception as e:
         logger.exception("Exception in /chat")
+        return jsonify({"error": str(e)}), 500
+
+@bp.route("/auth", methods=["GET"])
+async def auth():
+    try:
+        pwd = APP_PWD
+        if pwd == "":
+            return jsonify({"error": "pwd notfound"}), 400
+        return jsonify({"pwd": pwd})
+    except Exception as e:
+        logger.exception("Exception in /auth")
         return jsonify({"error": str(e)}), 500
 
 @bp.before_request

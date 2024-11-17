@@ -40,7 +40,7 @@ const Auth = () => {
     return (
         <div className={styles.container}>
             {isLoggedIn ? `ID: ${authInfo?.pwd}` : "パスワードを入力してください"}
-            <input type="text" value={frmPwd} onChange={e => setFrmPwd(e.target.value)} />
+            <input type="password" value={frmPwd} onChange={e => setFrmPwd(e.target.value)} />
             <button onClick={handleLogin}>送信</button>
         </div>
     );

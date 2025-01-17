@@ -5,8 +5,8 @@ import styles from "./App.module.css";
 import {LoggedInContext} from '../components/Auth/authcontext'
 
 import Login from "./authuser/Auth"
+import QA from "./qa/QA"
 import Chat from "./chat/Chat"
-import Gen from "./general/General"
 
 const App = () => {
 
@@ -41,8 +41,8 @@ const App = () => {
                                 </NavLink>
                             </li>
                             <li className={styles.headerNavLeftMargin}>
-                                <NavLink to="/ge" className={({ isActive }) => (isActive ? styles.headerNavPageLinkActive : styles.headerNavPageLink)}>
-                                    General Chat
+                                <NavLink to="/QA" className={({ isActive }) => (isActive ? styles.headerNavPageLinkActive : styles.headerNavPageLink)}>
+                                    規程QA
                                 </NavLink>
                             </li>
                             <li className={styles.headerNavLeftMargin}>
@@ -66,7 +66,7 @@ const App = () => {
             <Routes>
                 <Route path="/" element={<Login />} />
                 <Route path="/ch" element={<PrivateRoute><Chat /></PrivateRoute>} />
-                <Route path="/ge" element={<PrivateRoute><Gen /></PrivateRoute>} />
+                <Route path="/QA" element={<PrivateRoute><QA /></PrivateRoute>} />
             </Routes>
         </div>
     );

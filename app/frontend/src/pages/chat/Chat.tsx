@@ -1,18 +1,20 @@
-import { useRef, useState, useEffect} from "react";
+import { useRef, useState, useEffect } from "react";
 import { Checkbox, Panel, DefaultButton, TextField, SpinButton, Dropdown, IDropdownOption } from "@fluentui/react";
 import { SparkleFilled } from "@fluentui/react-icons";
 
 import styles from "./Chat.module.css";
 
 import { chatApi, RetrievalMode, Approaches, AskResponse, ChatRequest, ChatTurn } from "../../api";
-import { Answer, AnswerError, AnswerLoading } from "../../components/Answer";
+import { AnswerLight, AnswerError, AnswerLoading } from "../../components/AnswerLight";
 import { QuestionInput } from "../../components/QuestionInput";
+// import { QuestionInput2 } from "../../components/QuestionInput2";
 import { ExampleList } from "../../components/Example";
 import { UserChatMessage } from "../../components/UserChatMessage";
 import { AnalysisPanel, AnalysisPanelTabs } from "../../components/AnalysisPanel";
 import { SettingsButton } from "../../components/SettingsButton";
 import { ClearChatButton } from "../../components/ClearChatButton";
 
+//export function Component(): JSX.Element {
 const Chat = () => {
     const [isConfigPanelOpen, setIsConfigPanelOpen] = useState(false);
     const [promptTemplate, setPromptTemplate] = useState<string>("");
@@ -35,6 +37,8 @@ const Chat = () => {
     const [selectedAnswer, setSelectedAnswer] = useState<number>(0);
     const [answers, setAnswers] = useState<[user: string, response: AskResponse][]>([]);
 
+    const testAssistant = async () => {};
+
     const makeApiRequest = async (question: string) => {
         lastQuestionRef.current = question;
 
@@ -47,7 +51,7 @@ const Chat = () => {
             const history: ChatTurn[] = answers.map(a => ({ user: a[0], bot: a[1].answer }));
             const request: ChatRequest = {
                 history: [...history, { user: question, bot: undefined }],
-                approach: Approaches.ReadRetrieveRead,
+                approach: Approaches.General,
                 overrides: {
                     promptTemplate: promptTemplate.length === 0 ? undefined : promptTemplate,
                     excludeCategory: excludeCategory.length === 0 ? undefined : excludeCategory,
@@ -131,6 +135,22 @@ const Chat = () => {
         setSelectedAnswer(index);
     };
 
+    // const inputRef = useRef<HTMLInputElement>(null);
+
+    // const onFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    //     console.log(e.target.files);
+    //     if (e.target.files !== null) {
+    //         alert("name:" + e.target.files[0].name);
+    //     } else {
+    //         alert("nothing");
+    //     }
+    // };
+
+    // const fileUpload = () => {
+    //     console.log(inputRef.current);
+    //     inputRef?.current?.click();
+    // };
+
     return (
         <div className={styles.container}>
             <div className={styles.commandsContainer}>
@@ -142,9 +162,9 @@ const Chat = () => {
                     {!lastQuestionRef.current ? (
                         <div className={styles.chatEmptyState}>
                             <SparkleFilled fontSize={"120px"} primaryFill={"rgba(115, 118, 225, 1)"} aria-hidden="true" aria-label="Chat logo" />
-                            <h1 className={styles.chatEmptyStateTitle}>社内規程QA</h1>
-                            <h2 className={styles.chatEmptyStateSubtitle}>社内規程に特化したChatGPTです</h2>
-                            <ExampleList onExampleClicked={onExampleClicked} />
+                            <h1 className={styles.chatEmptyStateTitle}>Private Chat GPT</h1>
+                            <h2 className={styles.chatEmptyStateSubtitle}>ここで入力したチャットは外部に送信されず、AIの学習に使用されません</h2>
+                            {/* <ExampleList onExampleClicked={onExampleClicked} /> */}
                         </div>
                     ) : (
                         <div className={styles.chatMessageStream}>
@@ -152,7 +172,7 @@ const Chat = () => {
                                 <div key={index}>
                                     <UserChatMessage message={answer[0]} />
                                     <div className={styles.chatMessageGpt}>
-                                        <Answer
+                                        <AnswerLight
                                             key={index}
                                             answer={answer[1]}
                                             isSelected={selectedAnswer === index && activeAnalysisPanelTab !== undefined}
@@ -186,8 +206,13 @@ const Chat = () => {
                     )}
 
                     <div className={styles.chatInput}>
-                        <QuestionInput clearOnSend placeholder="質問を入力してください" disabled={isLoading} onSend={question => makeApiRequest(question)} />
+                        {/* <QuestionInput2 clearOnSend placeholder="何でも聞いてください..." disabled={isLoading} onSend={question => makeApiRequest(question)} /> */}
+                        <QuestionInput clearOnSend placeholder="何でも聞いてください..." disabled={isLoading} onSend={question => makeApiRequest(question)} />
                     </div>
+                    {/* <div>
+                        <button onClick={fileUpload}>fileup</button>
+                        <input hidden ref={inputRef} type="file" onChange={onFileInputChange} />
+                    </div> */}
                 </div>
 
                 {answers.length > 0 && activeAnalysisPanelTab && (

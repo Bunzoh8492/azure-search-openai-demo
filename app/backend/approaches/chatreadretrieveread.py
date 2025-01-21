@@ -36,7 +36,7 @@ class ChatReadRetrieveReadApproach(ChatApproach):
 # {injected_prompt}
 # """
     system_message_chat_conversation = """
-Answer the reading comprehension question on the history of the Kamakura period in Japan.
+You are the contact person for inquiries about internal regulations.
 If you cannot guess the answer to a question from the SOURCES, answer "検索対象データから回答を得られませんでした。".
 Answers must be in Japanese.
 
@@ -70,17 +70,17 @@ A:関ヶ原の戦いは、1600年10月21日に美濃国不破郡関ヶ原（岐�
 """
 
     query_prompt_template = """
-Below is a history of previous conversations and a new question from a user that needs to be answered by searching the Knowledge Base on Japanese history.
+Below is a history of previous conversations and a new question from a user that needs to be answered by searching the Knowledge Base on internal regulations.
 Based on the conversation and the new question, create a search query.
 Do not include the name of the cited file or document (e.g., info.txt or doc.pdf) in the search query.
 Do not include text in [] or <>> in the search query.
 If you cannot generate a search query, return only the number 0.
 """
     query_prompt_few_shots = [
-        {'role' : USER, 'content' : '徳川家康ってなにした人  ' },
-        {'role' : ASSISTANT, 'content' : '徳川家康 人物 歴史' },
-        {'role' : USER, 'content' : '徳川家康の武功を教えてください' },
-        {'role' : ASSISTANT, 'content' : '徳川家康 人物 武功 業績' }
+        {'role' : USER, 'content' : '有休の年間付与日数を教えてください' },
+        {'role' : ASSISTANT, 'content' : '有休休暇 付与日数' },
+        {'role' : USER, 'content' : '有休の繰り越し限度日数を教えてください' },
+        {'role' : ASSISTANT, 'content' : '有休休暇 繰り越し 日数 限度' }
     ]
 
     def __init__(self, search_client: SearchClient, chatgpt_deployment: str, chatgpt_model: str, embedding_deployment: str, sourcepage_field: str, content_field: str):

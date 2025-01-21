@@ -55,6 +55,7 @@ CONFIG_CHAT_APPROACHES = "chat_approaches"
 CONFIG_BLOB_CLIENT = "blob_client"
 
 APPLICATIONINSIGHTS_CONNECTION_STRING = os.getenv("APPLICATIONINSIGHTS_CONNECTION_STRING")
+#ローカルデバッグの場合は認証スキップするようにしたい
 APP_PWD = os.getenv("APP_PWD")
 
 bp = Blueprint("routes", __name__, static_folder='static')
